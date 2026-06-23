@@ -1,0 +1,164 @@
+# Bounty Hunter Configuration
+
+# Scraping Schedule (in hours)
+schedule:
+  priority_1: 24  # Daily
+  priority_2: 168  # Weekly (7 days)
+  priority_3: 720  # Monthly (30 days)
+
+# Platforms to scrape
+platforms:
+  # Bug Bounty Platforms
+  hackerone:
+    enabled: true
+    priority: 1
+    url: "https://hackerone.com/directory/programs"
+    type: "bug_bounty"
+    requires_auth: false
+    
+  bugcrowd:
+    enabled: true
+    priority: 1
+    url: "https://bugcrowd.com/programs"
+    type: "bug_bounty"
+    requires_auth: false
+    
+  intigriti:
+    enabled: true
+    priority: 1
+    url: "https://app.intigriti.com/programs"
+    type: "bug_bounty"
+    requires_auth: false
+    
+  yeswehack:
+    enabled: true
+    priority: 1
+    url: "https://yeswehack.com/programs"
+    type: "bug_bounty"
+    requires_auth: false
+    
+  immunefi:
+    enabled: true
+    priority: 1
+    url: "https://immunefi.com/bounty/"
+    type: "blockchain_bounty"
+    requires_auth: false
+    
+  code4rena:
+    enabled: true
+    priority: 1
+    url: "https://code4rena.com/contests"
+    type: "audit_contest"
+    requires_auth: false
+    
+  # Competition Platforms
+  kaggle:
+    enabled: true
+    priority: 1
+    url: "https://www.kaggle.com/competitions"
+    type: "ml_competition"
+    requires_auth: false
+    
+  devpost:
+    enabled: true
+    priority: 1
+    url: "https://devpost.com/hackathons"
+    type: "hackathon"
+    requires_auth: false
+    
+  gitcoin:
+    enabled: true
+    priority: 1
+    url: "https://gitcoin.co/explorer"
+    type: "bounty"
+    requires_auth: false
+    
+  herox:
+    enabled: true
+    priority: 2
+    url: "https://www.herox.com/crowdsourcing-projects"
+    type: "challenge"
+    requires_auth: false
+    
+  xprize:
+    enabled: true
+    priority: 2
+    url: "https://www.xprize.org/prizes"
+    type: "grand_challenge"
+    requires_auth: false
+    
+  topcoder:
+    enabled: true
+    priority: 2
+    url: "https://www.topcoder.com/challenges"
+    type: "coding_challenge"
+    requires_auth: false
+    
+  challenge_gov:
+    enabled: true
+    priority: 2
+    url: "https://www.challenge.gov/api/challenges"
+    type: "government_challenge"
+    requires_auth: false
+
+# Filtering criteria
+filters:
+  min_reward: 100  # Minimum reward in USD
+  max_age_days: 30  # Only show opportunities posted in last X days
+  keywords_include:
+    - "remote"
+    - "software"
+    - "AI"
+    - "machine learning"
+    - "security"
+    - "smart contract"
+    - "blockchain"
+    - "web development"
+    - "API"
+    - "algorithm"
+  keywords_exclude:
+    - "on-site only"
+    - "hardware required"
+    - "PhD required"
+
+# Notification settings
+notifications:
+  enabled: true
+  methods:
+    - "email"
+    - "desktop"
+    - "report_file"
+  email:
+    enabled: false  # Set to true and configure SMTP
+    smtp_host: ""
+    smtp_port: 587
+    smtp_user: ""
+    smtp_password: ""
+    recipients: []
+  desktop:
+    enabled: true
+    min_reward: 1000  # Only notify for rewards above this
+  report_file:
+    enabled: true
+    path: "./reports/daily_digest.md"
+
+# Database settings
+database:
+  type: "sqlite"
+  path: "./data/bounties.db"
+  
+# Output settings
+output:
+  reports_dir: "./reports"
+  data_dir: "./data"
+  logs_dir: "./logs"
+  
+# Browser settings (for Selenium/Playwright)
+browser:
+  headless: true
+  timeout: 30
+  user_agent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+
+
+
+

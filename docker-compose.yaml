@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  bounty-hunter:
+    build: .
+    container_name: bounty-hunter
+    # We don't necessarily want this 'always' running, 
+    # but n8n can start/stop this container as needed.
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./logs:/app/logs
+      - ./config.yaml:/app/config.yaml
+    command: python bounty_hunter.py --scrape --priority 1

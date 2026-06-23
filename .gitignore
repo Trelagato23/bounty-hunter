@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Data
+data/*.db
+data/*.db-journal
+*.sqlite
+*.sqlite3
+
+# Reports (optional - remove if you want to track them)
+reports/*.md
+reports/*.txt
+reports/*.html
+
+# Logs
+logs/*.log
+logs/*.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials
+.env
+credentials.json
+secrets.yaml
+
+# Test files
+test_*.py
+*_test.py
+
+
+
+
