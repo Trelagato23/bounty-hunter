@@ -107,29 +107,31 @@ class BountyHunter:
         min_reward = filters.get('min_reward', 0)
         
         filtered = []
-        
+        keyword_exempt_types = {
+            "bug_bounty",
+            "blockchain_bounty",
+            "audit_contest",
+            "bounty",
+        }
+
         for opp in opportunities:
-            # Check minimum reward
-            reward_max = opp.get('reward_max')
-            if reward_max and reward_max < min_reward:
+            reward_max = opp.get("reward_max")
+            if reward_max is not None and reward_max < min_reward:
                 continue
-            
-            # Check keywords (if provided)
-            keywords_include = filters.get('keywords_include', [])
-            keywords_exclude = filters.get('keywords_exclude', [])
-            
+
+            keywords_include = filters.get("keywords_include", [])
+            keywords_exclude = filters.get("keywords_exclude", [])
             text = f"{opp.get('title', '')} {opp.get('description', '')}".lower()
-            
-            # Must include at least one keyword if specified
-            if keywords_include:
+            opp_type = opp.get("type", "")
+
+            if keywords_include and opp_type not in keyword_exempt_types:
                 if not any(kw.lower() in text for kw in keywords_include):
                     continue
-            
-            # Must not include any excluded keywords
+
             if keywords_exclude:
                 if any(kw.lower() in text for kw in keywords_exclude):
                     continue
-            
+
             filtered.append(opp)
         
         return filtered
@@ -137,8 +139,8 @@ class BountyHunter:
     def notify_new_opportunities(self, opportunities: List[Dict]):
         """Send notifications for new opportunities"""
         high_value = [
-            opp for opp in opportunities 
-            if opp.get('reward_max', 0) >= self.config['notifications']['desktop']['min_reward']
+            opp for opp in opportunities
+            if (opp.get('reward_max') or 0) >= self.config['notifications']['desktop']['min_reward']
         ]
         
         if high_value:
